@@ -61,7 +61,7 @@ async def listen():
         try:
             heartbeat_task = asyncio.create_task(heartbeat(websocket))
             
-            await websocket.logs_subscribe(rpcFilter, Commitment("confirmed"))
+            await websocket.logs_subscribe(rpcFilter, Commitment("finalized"))
             first_resp = await websocket.recv()
             subscription_id = first_resp[0].result
             
@@ -69,7 +69,7 @@ async def listen():
                 try:
                     s = str(msg[0].result.value.signature)
                     sig = Signature.from_string(s)
-                    tx = await solana_client.get_transaction(sig, "json", Commitment("confirmed"), max_supported_transaction_version=0)
+                    tx = await solana_client.get_transaction(sig, "json", Commitment("finalized"), max_supported_transaction_version=0)
                     j = tx.to_json()
                     async with httpx.AsyncClient() as client:
                         await client.post(os.getenv("WEBHOOK_URL"), data=j, headers={"Content-Type": "application/json"})
