@@ -1,6 +1,6 @@
 # Solana Hook
 
-This is a Dokku service to listen transactions for a Solana address in real-time and publish the transaction to a webhook. This is an open-source replacement for Helius or Hello-Moon transaction webhooks.
+This is a Dokku service to listen to Solana transactions for an address in real-time and publish the transaction to a webhook. This is an open-source replacement for Helius or Hello-Moon transaction webhooks.
 
 This service uses automatic reconnection, heartbeats, and robust error handling.
 
